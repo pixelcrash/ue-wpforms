@@ -1,46 +1,46 @@
 <?php 
-// Diesen Code in die functions.php Ihres Themes oder in ein eigenes Plugin einfügen
+
 add_action( 'wpforms_process_complete', 'wpforms_to_mailerlite_subscription', 10, 4 );
 
 function wpforms_to_mailerlite_subscription( $fields, $entry, $form_data, $entry_id ) {
-    // Ersetzen Sie diese ID mit der ID Ihres Formulars
+    // Change to your form ID
     $form_id = 123; 
     
-    // Nur für das spezifische Formular ausführen
+    // Return if Form ID is different 
     if ( $form_data['id'] != $form_id ) {
         return;
     }
     
-    // Ersetzen Sie '10' mit der ID Ihres Checkbox-Feldes
+    // Set you checkbox id (do you want to be on our newsletter list)
     $checkbox_field_id = '10';
     
-    // Ersetzen Sie '5' mit der ID Ihres E-Mail-Feldes
+    // ID from the E-Mail field
     $email_field_id = '5'; 
     
-    // Ersetzen Sie '3' und '4' mit den IDs Ihrer Vor- und Nachname-Felder (falls vorhanden)
+    // Use for first- and last name
     $first_name_field_id = '3';
     $last_name_field_id = '4';
     
-    // Prüfen, ob die Checkbox angekreuzt wurde
+    // check if checkbox is checked (check one - two) 
     if ( 
         isset( $fields[$checkbox_field_id] ) && 
         !empty( $fields[$checkbox_field_id]['value'] ) && 
         $fields[$checkbox_field_id]['value'] == '1' 
     ) {
-        // E-Mail-Adresse aus den Feldern holen
+        // Get E-Mail from field 
         $email = isset( $fields[$email_field_id] ) ? $fields[$email_field_id]['value'] : '';
         
         if ( empty( $email ) || !is_email( $email ) ) {
-            // Wenn keine gültige E-Mail gefunden wurde
+            // Has to be an email
             return;
         }
         
-        // Optional: Namen aus den Feldern holen
+        // Optional: Get Names
         $first_name = isset( $fields[$first_name_field_id] ) ? $fields[$first_name_field_id]['value'] : '';
         $last_name = isset( $fields[$last_name_field_id] ) ? $fields[$last_name_field_id]['value'] : '';
         
-        // MailerLite API-Schlüssel - Ersetzen Sie dies mit Ihrem API-Schlüssel
-        $api_key = 'IHRE_API_KEY_HIER';
+        // Api Key define in wp-config.php with define('API_MAILERLITE', 'api_key')
+        $api_key = API_MAILERLITE;
         
         // MailerLite Gruppen-ID - Ersetzen Sie mit Ihrer Gruppen-ID
         $group_id = 'IHRE_GRUPPEN_ID_HIER';
