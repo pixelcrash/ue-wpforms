@@ -1,3 +1,4 @@
+<?php 
 // Diesen Code in die functions.php Ihres Themes oder in ein eigenes Plugin einfügen
 add_action( 'wpforms_process_complete', 'wpforms_to_mailerlite_subscription', 10, 4 );
 
@@ -73,3 +74,4 @@ function wpforms_to_mailerlite_subscription( $fields, $entry, $form_data, $entry
         }
     }
 }
+?>
